@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senso Event Profit Calculator</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #fafafa 0%, #f4f4f4 100%);
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  .card {
+    background: white;
+    display: inline-block;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+  input {
+    padding: 0.6rem;
+    font-size: 1rem;
+    width: 150px;
+    text-align: center;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  .result {
+    margin-top: 25px;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  .profit {
+    font-weight: bold;
+    color: green;
+  }
+  .loss {
+    font-weight: bold;
+    color: red;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Senso Event Calculator</h1>
+    <p>Enter the number of guests and ticket price (€):</p>
+
+    <input type="number" id="guests" placeholder="Guests" min="1" oninput="calculate()">
+    <input type="number" id="price" placeholder="Ticket price" min="0" oninput="calculate()">
+
+    <div class="result" id="output"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const N = parseFloat(document.getElementById("guests").value);
+      const ticketPrice = parseFloat(document.getElementById("price").value);
+      const fixed = 4000;
+      const variable = 12.25;
+
+      if (N > 0 && ticketPrice >= 0) {
+        const totalCost = fixed + variable * N;
+        const costPerPerson = totalCost / N;
+        const totalRevenue = ticketPrice * N;
+        const profit = totalRevenue - totalCost;
+        const profitClass = profit >= 0 ? "profit" : "loss";
+
+        document.getElementById("output").innerHTML = `
+          <p>Total Cost: <b>€${totalCost.toFixed(2)}</b></p>
+          <p>Cost per Person: <b>€${costPerPerson.toFixed(2)}</b></p>
+          <p>Total Revenue: <b>€${totalRevenue.toFixed(2)}</b></p>
+          <p class="${profitClass}">Profit/Loss: <b>€${profit.toFixed(2)}</b></p>
+        `;
+      } else {
+        document.getElementById("output").innerHTML = "";
+      }
+    }
+  </script>
+</body>
+</html>
