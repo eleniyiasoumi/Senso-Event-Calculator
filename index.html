@@ -61,8 +61,8 @@
     function calculate() {
       const N = parseFloat(document.getElementById("guests").value);
       const ticketPrice = parseFloat(document.getElementById("price").value);
-      const fixed = 4000;
-      const variable = 12.25;
+      const fixed = 2150;
+      const variable = 15.75;
 
       if (N > 0 && ticketPrice >= 0) {
         const totalCost = fixed + variable * N;
